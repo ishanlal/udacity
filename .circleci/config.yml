@@ -7,6 +7,24 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
+  build:
+    docker:
+      - image: "cimg/base:stable"
+    steps:
+      - node/install
+      - checkout
+      - run:
+        name: "Front-End Install"
+        command: "npm run frontend:install"
+      - run:
+        name: "Back-End Install"
+        command: "npm run backend:install"
+      - run:
+        name: "Front-End Build"
+        command: "npm run frontend:build"
+      - run:
+        name: "Back-End Build"
+        command: "npm run backend:build"
   say-hello:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
